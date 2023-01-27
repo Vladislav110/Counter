@@ -1,0 +1,44 @@
+Body {
+  height: 800px;
+  width: auto;
+
+  background-color: lemonchiffon;
+}
+
+.App {
+  display: grid;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.Counter {
+  display: grid;
+  text-align: center;
+  width: 300px;
+  height: inherit;
+  background-color: aqua;
+  border: solid 2px blue;
+  border-radius: 5px;
+
+}
+
+.Buttons {
+  border: solid 2px blue;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 5px;
+  background-color: darkturquoise;
+
+}
+
+.button {
+  margin: 5px;
+  border: solid 2px blue;
+  border-radius: 2px;
+  background-color: aqua;
+
+}
+
+.red {
+  color: red;
+}
