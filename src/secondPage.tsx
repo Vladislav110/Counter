@@ -1,15 +1,15 @@
 import React, {ChangeEvent} from 'react';
 import {NavLink} from "react-router-dom";
 
-type SecondPagePropsTypes= {
-    setInitialInputValue: (minValue: number)=> void
-    setMaxInputValue: (maxValue: number)=> void
+type SecondPagePropsTypes = {
+    setInitialInputValue: (minValue: number) => void
+    setMaxInputValue: (maxValue: number) => void
     InitialInputValue: number
     MaxInputValue: number
-    setCount: (value:number)=>void
+    setValue: (value: number) => void
 }
 
-export const SecondPage = (props:SecondPagePropsTypes) => {
+export const SecondPage = (props: SecondPagePropsTypes) => {
 
     const minValueInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         props.setInitialInputValue(Number(event.currentTarget.value))
@@ -17,10 +17,11 @@ export const SecondPage = (props:SecondPagePropsTypes) => {
 
     const MaxValueInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         props.setMaxInputValue(Number(event.currentTarget.value))
+        console.log(event.currentTarget.value)
     }
 
-    const setValueHandler = ()=>{
-        props.setCount( props.InitialInputValue)
+    const setValueHandler = () => {
+        props.setValue(props.InitialInputValue)
     }
 
     const inputClassName = props.InitialInputValue < 0 ? "red" : "" || props.InitialInputValue >= props.MaxInputValue ? "red" : "";
@@ -28,12 +29,15 @@ export const SecondPage = (props:SecondPagePropsTypes) => {
     return (
         <div className="Counter">
             <h3> Start value:</h3>
-            <input className={inputClassName} onChange={minValueInputHandler} value={props.InitialInputValue} type='number'/>
+            <input className={inputClassName} onChange={minValueInputHandler} value={props.InitialInputValue}
+                   type='number'/>
 
             <h3>Max value:</h3>
             <input onChange={MaxValueInputHandler} value={props.MaxInputValue} type='number'/>
 
-            <NavLink to= "/FP">{<button className="button" disabled={props.InitialInputValue < 0 || props.InitialInputValue >= props.MaxInputValue} onClick={setValueHandler}>Set</button>}</NavLink>
+            <NavLink to="/">{<button className="button"
+                                     disabled={props.InitialInputValue < 0 || props.InitialInputValue >= props.MaxInputValue}
+                                     onClick={setValueHandler}>Set</button>}</NavLink>
         </div>
     );
 };

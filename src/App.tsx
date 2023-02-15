@@ -1,47 +1,67 @@
-import React, {useState} from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {FirstPage} from "./firstPage";
 import {SecondPage} from "./secondPage";
 import {Route, Routes} from "react-router-dom";
+import {
+    InitialStateType,
+    resetCountActionCreator,
+    setCountActionCreator,
+    setInitialInputValueActionCreator,
+    setMaxInputValueActionCreator, setValueActionCreator
+} from "./counter_reducer";
+import {AppStateType} from "./redux_store";
+import {useDispatch, useSelector} from "react-redux";
+
 
 function App() {
 
+    const counter = useSelector<AppStateType, InitialStateType>(state => state.counterPage)
+    const dispatch = useDispatch();
 
-    const [InitialInputValue, setInitialInputValue] = useState(0)
+    const resetCount = useCallback(() => {
+        const action = resetCountActionCreator();
+        dispatch(action);
+    }, [])
 
-    const [MaxInputValue, setMaxInputValue] = useState(5)
+    const setCount = useCallback(() => {
+        const action = setCountActionCreator();
+        dispatch(action);
+    }, [])
 
-    let [count, setCount] = useState(InitialInputValue)
+    const setInitialInputValue = useCallback((initialValue: number) => {
+        const action = setInitialInputValueActionCreator(initialValue);
+        dispatch(action);
+    }, [])
 
-    const counter = () => {
-        if (count < MaxInputValue) {
-            return setCount(++count)
-        } else {
-            return setCount(InitialInputValue)
-        }
-    }
+    const setMaxInputValue = useCallback((maxValue: number) => {
+        const action = setMaxInputValueActionCreator(maxValue);
+        dispatch(action);
+    }, [])
 
-    const Reset = () => {
-        setCount(InitialInputValue)
-    }
+    const setValue = useCallback((initialValue: number) => {
+        const action = setValueActionCreator(initialValue);
+        dispatch(action);
+    }, [])
+
 
     return (
         <div className="App">
             <Routes>
-                <Route path= "/FP" element = {<FirstPage
-                    count={count}
-                    MaxInputValue={MaxInputValue}
-                    InitialInputValue={InitialInputValue}
-                    counter={counter}
-                    Reset={Reset}
-                    setCount = {setCount}
+                <Route path="/" element={<FirstPage
+                    count={counter.count}
+                    MaxInputValue={counter.MaxInputValue}
+                    InitialInputValue={counter.InitialInputValue}
+                    counter={setCount}
+                    Reset={resetCount}
+                    setCount={setCount}
                 />}></Route>
-                <Route path= "/SP" element = {<SecondPage
+                <Route path="/SP" element={<SecondPage
                     setInitialInputValue={setInitialInputValue}
-                    setMaxInputValue = {setMaxInputValue}
-                    InitialInputValue = {InitialInputValue}
-                    MaxInputValue ={MaxInputValue}
-                    setCount = {setCount}
+                    setMaxInputValue={setMaxInputValue}
+                    InitialInputValue={counter.InitialInputValue}
+                    MaxInputValue={counter.MaxInputValue}
+                    setValue={setValue}
                 />}></Route>
             </Routes>
         </div>
