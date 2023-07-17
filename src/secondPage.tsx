@@ -17,7 +17,7 @@ export const SecondPage = (props: SecondPagePropsTypes) => {
 
     const MaxValueInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         props.setMaxInputValue(Number(event.currentTarget.value))
-        console.log(event.currentTarget.value)
+
     }
 
     const setValueHandler = () => {

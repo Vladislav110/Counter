@@ -8,7 +8,8 @@ import {
     resetCountActionCreator,
     setCountActionCreator,
     setInitialInputValueActionCreator,
-    setMaxInputValueActionCreator, setValueActionCreator
+    setMaxInputValueActionCreator,
+    setValueActionCreator
 } from "./counter_reducer";
 import {AppStateType} from "./redux_store";
 import {useDispatch, useSelector} from "react-redux";
@@ -19,24 +20,29 @@ function App() {
     const counter = useSelector<AppStateType, InitialStateType>(state => state.counterPage)
     const dispatch = useDispatch();
 
+    // useEffect(()=>{
+    //     dispatch(setMinValueTC())
+    // },[])
+    //
+    // useEffect(()=>{
+    //     dispatch(setMaxValueTC())
+    // },[])
+
     const resetCount = useCallback(() => {
         const action = resetCountActionCreator();
         dispatch(action);
     }, [])
 
     const setCount = useCallback(() => {
-        const action = setCountActionCreator();
-        dispatch(action);
-    }, [])
+        dispatch(setCountActionCreator());
+    }, [counter.count])
 
     const setInitialInputValue = useCallback((initialValue: number) => {
-        const action = setInitialInputValueActionCreator(initialValue);
-        dispatch(action);
+        dispatch(setInitialInputValueActionCreator(initialValue));
     }, [])
 
     const setMaxInputValue = useCallback((maxValue: number) => {
-        const action = setMaxInputValueActionCreator(maxValue);
-        dispatch(action);
+        dispatch(setMaxInputValueActionCreator(maxValue));
     }, [])
 
     const setValue = useCallback((initialValue: number) => {
@@ -49,12 +55,12 @@ function App() {
         <div className="App">
             <Routes>
                 <Route path="/" element={<FirstPage
+                    setInitialInputValue={setInitialInputValue}
                     count={counter.count}
                     MaxInputValue={counter.MaxInputValue}
                     InitialInputValue={counter.InitialInputValue}
                     counter={setCount}
                     Reset={resetCount}
-                    setCount={setCount}
                 />}></Route>
                 <Route path="/SP" element={<SecondPage
                     setInitialInputValue={setInitialInputValue}

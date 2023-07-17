@@ -1,8 +1,12 @@
+import {Dispatch} from "redux";
+import {AppStateType} from "./redux_store";
+
 const SETCOUNT = "SETCOUNT";
 const RESETCOUNT = "RESETCOUNT";
 const SETINITIALINPUTVALUE = "SETINITIALINPUTVALUE"
 const SETMAXINPUTVALUE = "SETMAXINPUTVALUE"
 const SETVALUE = "SETVALUE"
+
 
 type ActionsType =
     ReturnType<typeof setCountActionCreator>
@@ -71,3 +75,36 @@ export const setValueActionCreator = (initialValue: number) => {
 }
 
 
+//THUNK
+
+// export const initialValueTC = (): any => (dispatch: Dispatch, getState: () => AppStateType) => {
+//     let currentValue = getState().counterPage.count
+//     localStorage.setItem("counterValue", JSON.stringify(currentValue + 1))
+//     dispatch(setCountActionCreator())
+// }
+//
+// export const minValueTC = (initialValue: number): any => (dispatch: Dispatch) => {
+//     localStorage.setItem("minValue", JSON.stringify(initialValue))
+//     dispatch(setInitialInputValueActionCreator(initialValue))
+// }
+//
+// export const maxValueTC = (maxValue: number): any => (dispatch: Dispatch) => {
+//     localStorage.setItem("maxValue", JSON.stringify(maxValue))
+//     dispatch(setMaxInputValueActionCreator(maxValue))
+// }
+//
+// export const setMinValueTC = (): any => (dispatch: Dispatch) => {
+//     let minValueAsString = localStorage.getItem("minValue")
+//     if (minValueAsString) {
+//         let newMinValue = JSON.parse(minValueAsString)
+//         dispatch(setInitialInputValueActionCreator(newMinValue))
+//     }
+// }
+//
+//     export const setMaxValueTC = (): any => (dispatch: Dispatch) => {
+//         let maxValueAsString = localStorage.getItem("maxValue")
+//         if (maxValueAsString) {
+//             let newMaxValue = JSON.parse(maxValueAsString)
+//             dispatch(setMaxInputValueActionCreator(newMaxValue))
+//         }
+// }
